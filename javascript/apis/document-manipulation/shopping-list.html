@@ -1,8 +1,8 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en-US">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shopping list example</title>
     <style>
       li {
@@ -17,21 +17,46 @@
     </style>
   </head>
   <body>
-
     <h1>My shopping list</h1>
 
     <form>
       <label for="item">Enter a new item:</label>
-      <input type="text" name="item" id="item">
+      <input type="text" name="item" id="item" />
+      <!-- name="item"
+→ 入力されたデータに付ける名前
+→ 「このデータは item という項目です」 -->
       <button>Add item</button>
     </form>
 
-    <ul>
-
-    </ul>
+    <ul></ul>
 
     <script>
+      const ul = document.querySelector("ul");
+      const input = document.querySelector("input");
+      const button = document.querySelector("button");
 
+      button.addEventListener("click", (event) => {
+        event.preventDefault();
+
+        const itemName = input.value;
+        input.value = "";
+
+        const li = document.createElement("li");
+        //liを作るたびに、そのDeleteボタンのコールバックが「そのときのli」を覚えている
+        const span = document.createElement("span");
+        const buttonToDelete = document.createElement("button");
+
+        li.appendChild(span);
+        li.appendChild(buttonToDelete);
+
+        span.textContent = itemName;
+        buttonToDelete.textContent = "Delete";
+
+        ul.appendChild(li);
+
+        buttonToDelete.addEventListener("click", () => {ul.removeChild(li);});
+        input.focus();
+      });
     </script>
   </body>
 </html>
